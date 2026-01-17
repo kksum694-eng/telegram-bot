@@ -1,6 +1,8 @@
 <?php
 $update = json_decode(file_get_contents('php://input'), true);
-
+if ($update['message']['chat']['type'] != 'private') {
+    die();
+}
 /* GROUP SILENT – FINAL FIX */
 if (
     isset($update['message']['chat']['type']) &&
