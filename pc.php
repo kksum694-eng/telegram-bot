@@ -1,4 +1,21 @@
 <?php
+$update = json_decode(file_get_contents('php://input'), true);
+
+/* GROUP SILENT – FINAL FIX */
+if (
+    isset($update['message']['chat']['type']) &&
+    in_array($update['message']['chat']['type'], ['group', 'supergroup'])
+) {
+    exit();
+}
+if (
+    isset($update['callback_query']['message']['chat']['type']) &&
+    in_array($update['callback_query']['message']['chat']['type'], ['group', 'supergroup'])
+) {
+    exit();
+}
+/* END */
+
 // --- Configuration ---
 const BOT_TOKEN     = '7998704927:AAHoLSwfnN4023NZHhfx29a3eJfXRs6SHRc';
 const ADMIN_CHAT_ID = '';
@@ -902,7 +919,6 @@ function handleChannelCheck($chat_id, $message_id = "", &$userData) {
 //  MAIN WEBHOOK HANDLER
 // ======================================================================
 
-$update = json_decode(file_get_contents('php://input'), true);
 if (isset($update['message']['chat']['type']) && $update['message']['chat']['type'] !== 'private') {
     exit;
 }
