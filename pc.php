@@ -1,4 +1,11 @@
 <?php
+if (isset($update['message']['chat']['type']) && $update['message']['chat']['type'] !== 'private') {
+    exit();
+}
+if (isset($update['callback_query']['message']['chat']['type']) && $update['callback_query']['message']['chat']['type'] !== 'private') {
+    exit();
+}
+
 // --- Configuration ---
 const BOT_TOKEN     = '7998704927:AAHoLSwfnN4023NZHhfx29a3eJfXRs6SHRc';
 const ADMIN_CHAT_ID = '';
