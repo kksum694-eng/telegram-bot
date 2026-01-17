@@ -1,8 +1,14 @@
 <?php
 $update = json_decode(file_get_contents('php://input'), true);
-if ($update['message']['chat']['type'] != 'private') {
-    die();
+// --- START: Group Blocker ---
+if (isset($update['message'])) {
+    $type = $update['message']['chat']['type'];
+    // अगर ग्रुप या सुपरग्रुप है, तो यहीं रुक जाओ
+    if ($type == 'group' || $type == 'supergroup') {
+        die(); 
+    }
 }
+// --- END: Group Blocker ---
 /* GROUP SILENT – FINAL FIX */
 if (
     isset($update['message']['chat']['type']) &&
