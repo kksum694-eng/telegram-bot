@@ -903,6 +903,10 @@ function handleChannelCheck($chat_id, $message_id = "", &$userData) {
 // ======================================================================
 
 $update = json_decode(file_get_contents('php://input'), true);
+if (isset($update['message']['chat']['type']) && $update['message']['chat']['type'] !== 'private') {
+    exit;
+}
+
 if (!$update) exit('Not a Telegram update.');
 
 $chat_id = $update['message']['chat']['id'] ?? $update['callback_query']['message']['chat']['id'] ?? null;
