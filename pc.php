@@ -936,6 +936,22 @@ $userData = getOrCreateUserData($chat_id);
 $step = $userData['step'] ?? 'start';
 
 if ($text === '/start') {
+
+    // ❌ group me /start ignore
+    if (
+        isset($update['message']['chat']['type']) &&
+        in_array($update['message']['chat']['type'], ['group', 'supergroup'])
+    ) {
+        exit();
+    }
+
+    // ✅ sirf private chat me kaam kare
+    $userData['step'] = 'check_channels';
+    saveUserData($chat_id, $userData);
+    handleChannelCheck($chat_id, null, $userData);
+    exit();
+}
+
     $userData['step'] = 'check_channels';
     saveUserData($chat_id, $userData);
     handleChannelCheck($chat_id, null, $userData);
