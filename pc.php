@@ -3,7 +3,7 @@
 const BOT_TOKEN     = '7998704927:AAHoLSwfnN4023NZHhfx29a3eJfXRs6SHRc';
 const ADMIN_CHAT_ID = '';
 const WEBHOOK_URL   = '';
-const CHANNEL_IDS   = ['@sklootmachao1'];
+const CHANNEL_IDS   = [];
 
 function httpCallAdvanced($url, $data = null, $headers = [], $method = "GET", $returnHeaders = false) {
     $ch = curl_init();
