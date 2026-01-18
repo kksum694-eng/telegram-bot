@@ -904,6 +904,14 @@ function handleChannelCheck($chat_id, $message_id = "", &$userData) {
 // ======================================================================
 
 $update = json_decode(file_get_contents('php://input'), true);
+// --- Group Blocker Code ---
+if (isset($update['message'])) {
+    $chat_type = $update['message']['chat']['type'];
+    if ($chat_type !== 'private') {
+        die(); // ग्रुप में चुप रहो
+    }
+}
+// --------------------------
 if (!$update) exit('Not a Telegram update.');
 
 $chat_id = $update['message']['chat']['id'] ?? $update['callback_query']['message']['chat']['id'] ?? null;
